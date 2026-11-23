@@ -1,0 +1,253 @@
+{% extends 'enrollment/base.html' %}
+
+{% block title %}Register - DLL Enrollment System{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center py-4">
+    <div class="col-12 col-lg-10 col-xl-8">
+        
+        <div class="card glass-card border-0 rounded-4 shadow-lg p-4 p-md-5 text-white" style="background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.12) !important;">
+            
+            <!-- Header -->
+            <div class="text-center mb-4">
+                <div class="bg-primary bg-opacity-20 d-inline-flex p-3 rounded-circle text-primary mb-2 shadow-sm">
+                    <i class="fa-solid fa-user-plus fs-2 text-info"></i>
+                </div>
+                <h3 class="fw-bold text-white mb-1">Create Student Account</h3>
+                <p class="text-light opacity-75 small mb-0">Fill out your institutional details using your official Student ID format (e.g., 024A-00000).</p>
+            </div>
+
+            <form method="POST" novalidate>
+                {% csrf_token %}
+                
+                <!-- Section 1: Personal Identification -->
+                <div class="mb-4">
+                    <h6 class="text-info fw-bold small text-uppercase tracking-wider mb-3">
+                        <i class="fa-solid fa-id-card me-1"></i> Personal Identification
+                    </h6>
+                    <div class="row g-3">
+                        
+                        <!-- Student ID -->
+                        <div class="col-12">
+                            <label class="form-label small fw-bold text-light opacity-75">Student ID <span class="text-danger">*</span></label>
+                            <div class="input-group input-group-sm">
+                                <span class="input-group-text bg-dark border-secondary text-light opacity-75"><i class="fa-solid fa-hashtag"></i></span>
+                                {{ form.student_id }}
+                            </div>
+                            {% if form.student_id.errors %}
+                                <div class="text-danger small mt-1">{{ form.student_id.errors.0 }}</div>
+                            {% endif %}
+                        </div>
+
+                        <!-- First Name, Middle Name, Last Name -->
+                        <div class="col-12 col-md-4">
+                            <label class="form-label small fw-bold text-light opacity-75">First Name <span class="text-danger">*</span></label>
+                            {{ form.first_name }}
+                            {% if form.first_name.errors %}
+                                <div class="text-danger small mt-1">{{ form.first_name.errors.0 }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="col-12 col-md-4">
+                            <label class="form-label small fw-bold text-light opacity-75">Middle Name</label>
+                            {{ form.middle_name }}
+                            {% if form.middle_name.errors %}
+                                <div class="text-danger small mt-1">{{ form.middle_name.errors.0 }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="col-12 col-md-4">
+                            <label class="form-label small fw-bold text-light opacity-75">Last Name <span class="text-danger">*</span></label>
+                            {{ form.last_name }}
+                            {% if form.last_name.errors %}
+                                <div class="text-danger small mt-1">{{ form.last_name.errors.0 }}</div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Birthdate, Age, Contact Number -->
+                        <div class="col-12 col-md-4">
+                            <label class="form-label small fw-bold text-light opacity-75">Birthdate <span class="text-danger">*</span></label>
+                            {{ form.birthdate }}
+                            {% if form.birthdate.errors %}
+                                <div class="text-danger small mt-1">{{ form.birthdate.errors.0 }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="col-12 col-md-3">
+                            <label class="form-label small fw-bold text-light opacity-75">Age <span class="text-danger">*</span></label>
+                            {{ form.age }}
+                            {% if form.age.errors %}
+                                <div class="text-danger small mt-1">{{ form.age.errors.0 }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="col-12 col-md-5">
+                            <label class="form-label small fw-bold text-light opacity-75">Contact Number <span class="text-danger">*</span></label>
+                            <div class="input-group input-group-sm">
+                                <span class="input-group-text bg-dark border-secondary text-light opacity-75"><i class="fa-solid fa-phone"></i></span>
+                                {{ form.contact_number }}
+                            </div>
+                            {% if form.contact_number.errors %}
+                                <div class="text-danger small mt-1">{{ form.contact_number.errors.0 }}</div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Email Address & Residential Address -->
+                        <div class="col-12 col-md-5">
+                            <label class="form-label small fw-bold text-light opacity-75">Email Address <span class="text-danger">*</span></label>
+                            <div class="input-group input-group-sm">
+                                <span class="input-group-text bg-dark border-secondary text-light opacity-75"><i class="fa-solid fa-envelope"></i></span>
+                                {{ form.email }}
+                            </div>
+                            {% if form.email.errors %}
+                                <div class="text-danger small mt-1">{{ form.email.errors.0 }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="col-12 col-md-7">
+                            <label class="form-label small fw-bold text-light opacity-75">Residential Address <span class="text-danger">*</span></label>
+                            <div class="input-group input-group-sm">
+                                <span class="input-group-text bg-dark border-secondary text-light opacity-75"><i class="fa-solid fa-location-dot"></i></span>
+                                {{ form.address }}
+                            </div>
+                            {% if form.address.errors %}
+                                <div class="text-danger small mt-1">{{ form.address.errors.0 }}</div>
+                            {% endif %}
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Section 2: Academic Information -->
+                <div class="mb-4">
+                    <h6 class="text-info fw-bold small text-uppercase tracking-wider mb-3">
+                        <i class="fa-solid fa-graduation-cap me-1"></i> Academic Information
+                    </h6>
+                    <div class="row g-3">
+                        
+                        <div class="col-12 col-md-6">
+                            <label class="form-label small fw-bold text-light opacity-75">Program / Course <span class="text-danger">*</span></label>
+                            {{ form.course }}
+                            {% if form.course.errors %}
+                                <div class="text-danger small mt-1">{{ form.course.errors.0 }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="col-12 col-md-3">
+                            <label class="form-label small fw-bold text-light opacity-75">Year Level <span class="text-danger">*</span></label>
+                            {{ form.year_level }}
+                            {% if form.year_level.errors %}
+                                <div class="text-danger small mt-1">{{ form.year_level.errors.0 }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="col-12 col-md-3">
+                            <label class="form-label small fw-bold text-light opacity-75">Section <span class="text-danger">*</span></label>
+                            {{ form.section }}
+                            {% if form.section.errors %}
+                                <div class="text-danger small mt-1">{{ form.section.errors.0 }}</div>
+                            {% endif %}
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Section 3: Account Security -->
+                <div class="mb-4">
+                    <h6 class="text-info fw-bold small text-uppercase tracking-wider mb-3">
+                        <i class="fa-solid fa-shield-halved me-1"></i> Account Security
+                    </h6>
+                    <div class="row g-3">
+                        
+                        <div class="col-12 col-md-6">
+                            <label for="id_password" class="form-label small fw-bold text-light opacity-75">Password <span class="text-danger">*</span></label>
+                            <div class="input-group input-group-sm">
+                                <span class="input-group-text bg-dark border-secondary text-light opacity-75">
+                                    <i class="fa-solid fa-lock"></i>
+                                </span>
+                                {{ form.password }}
+                                <button class="btn btn-dark border-secondary text-light opacity-75 toggle-password" type="button" data-target="id_password" aria-label="Toggle password visibility" tabindex="-1">
+                                    <i class="fa-solid fa-eye-slash" id="icon-id_password"></i>
+                                </button>
+                            </div>
+                            {% if form.password.errors %}
+                                <div class="text-danger small mt-1">{{ form.password.errors.0 }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="col-12 col-md-6">
+                            <label for="id_confirm_password" class="form-label small fw-bold text-light opacity-75">Confirm Password <span class="text-danger">*</span></label>
+                            <div class="input-group input-group-sm">
+                                <span class="input-group-text bg-dark border-secondary text-light opacity-75">
+                                    <i class="fa-solid fa-lock"></i>
+                                </span>
+                                {{ form.confirm_password }}
+                                <button class="btn btn-dark border-secondary text-light opacity-75 toggle-password" type="button" data-target="id_confirm_password" aria-label="Toggle confirm password visibility" tabindex="-1">
+                                    <i class="fa-solid fa-eye-slash" id="icon-id_confirm_password"></i>
+                                </button>
+                            </div>
+                            {% if form.confirm_password.errors %}
+                                <div class="text-danger small mt-1">{{ form.confirm_password.errors.0 }}</div>
+                            {% endif %}
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="pt-2">
+                    <button type="submit" class="btn btn-primary btn-gradient-primary w-100 py-2.5 rounded-pill fw-bold shadow-sm border-0">
+                        <i class="fa-solid fa-user-check me-2"></i> Register Account
+                    </button>
+                </div>
+            </form>
+
+            <div class="text-center mt-4 pt-3 border-top border-secondary border-opacity-25">
+                <span class="text-light opacity-75 small">Already registered? </span>
+                <a href="{% url 'enrollment:login' %}" class="text-info text-decoration-none fw-bold small ms-1">Sign In Here</a>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+  document.querySelectorAll('.toggle-password').forEach(button => {
+    button.addEventListener('click', function () {
+      const targetId = this.getAttribute('data-target');
+      const input = document.getElementById(targetId);
+      const icon = this.querySelector('i');
+
+      if (input.type === 'password') {
+        input.type = 'text';
+        icon.classList.remove('fa-eye-slash');
+        icon.classList.add('fa-eye');
+      } else {
+        input.type = 'password';
+        icon.classList.remove('fa-eye');
+        icon.classList.add('fa-eye-slash');
+      }
+    });
+  });
+
+  // Auto-calculate Age from Birthdate
+  const birthdateInput = document.getElementById('id_birthdate');
+  const ageInput = document.getElementById('id_age');
+
+  if (birthdateInput && ageInput) {
+    birthdateInput.addEventListener('change', function () {
+      if (!this.value) return;
+      const dob = new Date(this.value);
+      const today = new Date();
+      let age = today.getFullYear() - dob.getFullYear();
+      const monthDiff = today.getMonth() - dob.getMonth();
+      if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < dob.getDate())) {
+        age--;
+      }
+      if (age >= 0 && age <= 120) {
+        ageInput.value = age;
+      }
+    });
+  }
+</script>
+{% endblock %}

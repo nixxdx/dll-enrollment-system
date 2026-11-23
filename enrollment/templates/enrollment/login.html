@@ -1,0 +1,129 @@
+{% extends 'enrollment/base.html' %}
+{% load static %}
+
+{% block title %}Student Sign In - DLL Enrollment System{% endblock %}
+
+{% block content %}
+<div class="dll-fullbleed-login">
+    <div class="container-fluid px-3 px-sm-4 px-lg-5 dll-fullbleed-container">
+        <div class="row align-items-center justify-content-between g-4 w-100 mx-auto">
+            
+            <!-- Left Side: Institutional Hero Branding -->
+            <div class="col-12 col-lg-7 dll-hero-left">
+                <div class="d-flex align-items-center gap-3 mb-3 mb-lg-4">
+                    <div class="brand-title-stack">
+                        <span class="top-city-text">CITY OF LUCENA</span>
+                        <span class="sub-city-text">Lungsod ng Lucena</span>
+                    </div>
+                </div>
+
+                <div class="hero-dark-body my-2 my-lg-3">
+                    <div class="hero-tag-badge">CITY OF LUCENA</div>
+                    <h1 class="hero-fullbleed-title">DALUBHASAANG<br>LUNGSOD NG LUCENA</h1>
+                    <p class="hero-motto-text">Educate &nbsp;•&nbsp; Empower &nbsp;•&nbsp; Serve</p>
+                    <p class="hero-fullbleed-desc mb-0">
+                        Building a brighter Lucena through quality, accessible and relevant local higher education.
+                    </p>
+                </div>
+
+                <div class="hero-dark-pillars mt-3 mt-lg-4">
+                    <div class="pillar-item">
+                        <i class="fa-solid fa-graduation-cap pillar-icon"></i>
+                        <div class="pillar-label">Quality<br>Education</div>
+                    </div>
+                    <div class="pillar-item">
+                        <i class="fa-solid fa-people-group pillar-icon"></i>
+                        <div class="pillar-label">Empowered<br>Communities</div>
+                    </div>
+                    <div class="pillar-item">
+                        <i class="fa-solid fa-heart pillar-icon"></i>
+                        <div class="pillar-label">Responsive<br>Public Service</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Side: Floating Glassmorphism Login Card -->
+            <div class="col-12 col-lg-5 d-flex justify-content-center justify-content-lg-end">
+                <div class="dll-floating-login-card">
+                    
+                    <div class="text-center mb-3">
+                        <div class="d-inline-flex mb-2">
+                            <img src="{% static 'images/dll_logo.png' %}" alt="DLL Logo" width="58" height="58" class="login-card-logo rounded-circle">
+                        </div>
+                        <h3 class="fw-bold text-white mb-1 login-welcome-title">Welcome Back</h3>
+                        <p class="login-welcome-subtitle mb-0">Sign in to your DLL student account</p>
+                    </div>
+
+                    <form method="POST" action="{% url 'enrollment:login' %}">
+                        {% csrf_token %}
+
+                        <!-- Student ID -->
+                        <div class="mb-3">
+                            <label for="student_id" class="form-label login-field-label mb-1">Student ID</label>
+                            <div class="input-group login-input-group">
+                                <span class="input-group-text">
+                                    <i class="fa-solid fa-id-card"></i>
+                                </span>
+                                <input type="text" name="student_id" id="student_id" class="form-control" placeholder="024A-00000" required autofocus>
+                            </div>
+                        </div>
+
+                        <!-- Password -->
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                <label for="student_password" class="form-label login-field-label mb-0">Password</label>
+                                <a href="{% url 'enrollment:password_reset' %}" class="text-info text-decoration-none fw-semibold small">Forgot Password?</a>
+                            </div>
+                            <div class="input-group login-input-group">
+                                <span class="input-group-text">
+                                    <i class="fa-solid fa-lock"></i>
+                                </span>
+                                <input type="password" name="password" id="student_password" class="form-control" placeholder="Enter password" required>
+                                <button class="btn toggle-password" type="button" id="togglePasswordBtn" aria-label="Toggle password visibility" tabindex="-1">
+                                    <i class="fa-solid fa-eye-slash" id="toggleIcon"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Submit -->
+                        <div class="pt-1">
+                            <button type="submit" class="btn btn-primary btn-gradient-primary w-100 rounded-pill fw-bold shadow-sm border-0 login-submit-btn">
+                                <i class="fa-solid fa-right-to-bracket me-2"></i> Log In
+                            </button>
+                        </div>
+                    </form>
+
+                    <div class="text-center mt-3 pt-3 border-top border-secondary border-opacity-25 login-register-row">
+                        <span class="text-light opacity-75">Don't have an account?</span>
+                        <a href="{% url 'enrollment:register' %}" class="text-info text-decoration-none fw-bold ms-1">Register Here</a>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const toggleBtn = document.querySelector('#togglePasswordBtn');
+        const passwordInput = document.querySelector('#student_password');
+        const toggleIcon = document.querySelector('#toggleIcon');
+
+        if (toggleBtn && passwordInput && toggleIcon) {
+            toggleBtn.addEventListener('click', function () {
+                if (passwordInput.type === 'password') {
+                    passwordInput.type = 'text';
+                    toggleIcon.classList.remove('fa-eye-slash');
+                    toggleIcon.classList.add('fa-eye');
+                } else {
+                    passwordInput.type = 'password';
+                    toggleIcon.classList.remove('fa-eye');
+                    toggleIcon.classList.add('fa-eye-slash');
+                }
+            });
+        }
+    });
+</script>
+{% endblock %}

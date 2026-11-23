@@ -1,0 +1,47 @@
+{% extends 'enrollment/base.html' %}
+
+{% block title %}Student Dashboard - DLL Enrollment System{% endblock %}
+
+{% block content %}
+<div class="container py-3">
+    <div class="glass-card p-4 p-md-5 text-white">
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4 pb-3 border-bottom border-secondary border-opacity-25">
+            <div>
+                <span class="badge bg-info bg-opacity-25 text-info border border-info border-opacity-50 rounded-pill px-3 py-1 mb-2">
+                    STUDENT PORTAL
+                </span>
+                <h2 class="fw-bold mb-1">Welcome, {{ student.full_name|default:user.username }}!</h2>
+                <p class="text-light opacity-75 mb-0">
+                    Student ID: <strong class="text-info">{{ student.student_id }}</strong> • {{ student.course }} ({{ student.year_level }} - Section {{ student.section }})
+                </p>
+            </div>
+            <a href="{% url 'enrollment:logout' %}" class="btn btn-outline-danger rounded-pill px-4 fw-semibold">
+                <i class="bi bi-box-arrow-right me-1"></i> Sign Out
+            </a>
+        </div>
+
+        {% if student %}
+        <div class="row g-3">
+            <div class="col-md-4">
+                <div class="p-3 rounded-3" style="background: rgba(30, 41, 59, 0.6); border: 1px solid rgba(255,255,255,0.1);">
+                    <div class="small text-info fw-bold text-uppercase mb-1">Birthdate & Age</div>
+                    <div class="fw-semibold">{{ student.birthdate }} ({{ student.age }} yrs old)</div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="p-3 rounded-3" style="background: rgba(30, 41, 59, 0.6); border: 1px solid rgba(255,255,255,0.1);">
+                    <div class="small text-info fw-bold text-uppercase mb-1">Contact & Email</div>
+                    <div class="fw-semibold">{{ student.contact_number }} • {{ student.email }}</div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="p-3 rounded-3" style="background: rgba(30, 41, 59, 0.6); border: 1px solid rgba(255,255,255,0.1);">
+                    <div class="small text-info fw-bold text-uppercase mb-1">Residential Address</div>
+                    <div class="fw-semibold">{{ student.address }}</div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
