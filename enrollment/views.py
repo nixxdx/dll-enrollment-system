@@ -1,9 +1,10 @@
-from django.shortcuts import render, redirect
+from .forms import StudentRegistrationForm
+from django.db.models import Q
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import StudentProfile
-from .forms import StudentRegistrationForm
 
 
 def login_view(request):
@@ -62,3 +63,34 @@ def dashboard_view(request):
     """Displays the authenticated student's enrollment dashboard."""
     student = getattr(request.user, 'student_profile', None)
     return render(request, "enrollment/dashboard.html", {"student": student})
+
+def student_list_view(request):
+    """Displays all StudentProfile records in a searchable class directory."""
+    query = request.GET.get('q', '').strip()
+    students = StudentProfile.objects.select_related('user').all()
+
+    if query:
+        students = students.filter(
+            Q(student_id__icontains=query) |
+            Q(first_name__icontains=query) |
+            Q(middle_name__icontains=query) |
+            Q(last_name__icontains=query) |
+            Q(course__icontains=query) |
+            Q(year_level__icontains=query) |
+            Q(section__icontains=query) |
+            Q(email__icontains=query)
+        )
+
+    return render(request, 'enrollment/student_list.html', {
+        'students': students,
+        'query': query,
+        'total_count': students.count(),
+    })
+
+
+def student_detail_view(request, pk):
+    """Displays a specific student's Personal Info and Academic/Background Info."""
+    student = get_object_or_404(StudentProfile.objects.select_related('user'), pk=pk)
+    return render(request, 'enrollment/student_detail.html', {
+        'student': student,
+    })

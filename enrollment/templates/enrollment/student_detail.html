@@ -1,0 +1,132 @@
+{% extends 'enrollment/base.html' %}
+
+{% block title %}{{ student.full_name }} - Student Profile{% endblock %}
+
+{% block content %}
+<div class="container py-3">
+    <div class="glass-card p-4 p-md-5 text-white">
+
+        <!-- Top Navigation -->
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-4">
+            <a href="{% url 'enrollment:student_list' %}" class="btn btn-outline-light rounded-pill px-4 fw-semibold">
+                <i class="bi bi-arrow-left me-1"></i> Back to Student List
+            </a>
+            <span class="badge bg-info bg-opacity-25 text-info border border-info border-opacity-50 rounded-pill px-3 py-2">
+                Student ID: {{ student.student_id }}
+            </span>
+        </div>
+
+        <!-- Profile Header Banner -->
+        <div class="d-flex flex-wrap align-items-center gap-3 p-4 rounded-4 mb-4" style="background: rgba(30, 58, 138, 0.45); border: 1px solid rgba(147, 197, 253, 0.25);">
+            <div class="rounded-circle bg-info text-dark fw-bold d-flex align-items-center justify-content-center flex-shrink-0" style="width: 74px; height: 74px; font-size: 28px;">
+                {{ student.first_name|slice:":1"|upper }}{{ student.last_name|slice:":1"|upper }}
+            </div>
+            <div>
+                <h2 class="fw-bold mb-1">{{ student.full_name }}</h2>
+                <p class="text-light opacity-75 mb-0">
+                    {{ student.course }} • {{ student.year_level }} — Section {{ student.section }}
+                </p>
+            </div>
+        </div>
+
+        <!-- Section 1: Personal Information -->
+        <h5 class="text-info text-uppercase fw-bold mb-3 pb-2 border-bottom border-secondary border-opacity-50">
+            <i class="bi bi-person-vcard me-2"></i>Personal Information
+        </h5>
+        <div class="row g-3 mb-4">
+            <div class="col-md-4">
+                <div class="p-3 rounded-3 h-100" style="background: rgba(15, 23, 42, 0.55); border: 1px solid rgba(255, 255, 255, 0.1);">
+                    <div class="small text-uppercase text-info opacity-75">First Name</div>
+                    <div class="fw-semibold fs-6">{{ student.first_name }}</div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="p-3 rounded-3 h-100" style="background: rgba(15, 23, 42, 0.55); border: 1px solid rgba(255, 255, 255, 0.1);">
+                    <div class="small text-uppercase text-info opacity-75">Middle Name</div>
+                    <div class="fw-semibold fs-6">{{ student.middle_name|default:"—" }}</div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="p-3 rounded-3 h-100" style="background: rgba(15, 23, 42, 0.55); border: 1px solid rgba(255, 255, 255, 0.1);">
+                    <div class="small text-uppercase text-info opacity-75">Last Name</div>
+                    <div class="fw-semibold fs-6">{{ student.last_name }}</div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="p-3 rounded-3 h-100" style="background: rgba(15, 23, 42, 0.55); border: 1px solid rgba(255, 255, 255, 0.1);">
+                    <div class="small text-uppercase text-info opacity-75">Birthdate</div>
+                    <div class="fw-semibold fs-6">{{ student.birthdate|date:"F j, Y" }}</div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="p-3 rounded-3 h-100" style="background: rgba(15, 23, 42, 0.55); border: 1px solid rgba(255, 255, 255, 0.1);">
+                    <div class="small text-uppercase text-info opacity-75">Age</div>
+                    <div class="fw-semibold fs-6">{{ student.age }} years old</div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="p-3 rounded-3 h-100" style="background: rgba(15, 23, 42, 0.55); border: 1px solid rgba(255, 255, 255, 0.1);">
+                    <div class="small text-uppercase text-info opacity-75">Contact Number</div>
+                    <div class="fw-semibold fs-6">{{ student.contact_number }}</div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="p-3 rounded-3 h-100" style="background: rgba(15, 23, 42, 0.55); border: 1px solid rgba(255, 255, 255, 0.1);">
+                    <div class="small text-uppercase text-info opacity-75">Email Address</div>
+                    <div class="fw-semibold fs-6">{{ student.email }}</div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="p-3 rounded-3 h-100" style="background: rgba(15, 23, 42, 0.55); border: 1px solid rgba(255, 255, 255, 0.1);">
+                    <div class="small text-uppercase text-info opacity-75">Residential Address</div>
+                    <div class="fw-semibold fs-6">{{ student.address }}</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 2: Academic & Background Information -->
+        <h5 class="text-info text-uppercase fw-bold mb-3 pb-2 border-bottom border-secondary border-opacity-50">
+            <i class="bi bi-mortarboard me-2"></i>Academic &amp; Background Information
+        </h5>
+        <div class="row g-3">
+            <div class="col-md-4">
+                <div class="p-3 rounded-3 h-100" style="background: rgba(15, 23, 42, 0.55); border: 1px solid rgba(255, 255, 255, 0.1);">
+                    <div class="small text-uppercase text-info opacity-75">Student ID</div>
+                    <div class="fw-semibold fs-6">{{ student.student_id }}</div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="p-3 rounded-3 h-100" style="background: rgba(15, 23, 42, 0.55); border: 1px solid rgba(255, 255, 255, 0.1);">
+                    <div class="small text-uppercase text-info opacity-75">Course / Degree Program</div>
+                    <div class="fw-semibold fs-6">{{ student.course }}</div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="p-3 rounded-3 h-100" style="background: rgba(15, 23, 42, 0.55); border: 1px solid rgba(255, 255, 255, 0.1);">
+                    <div class="small text-uppercase text-info opacity-75">Year Level</div>
+                    <div class="fw-semibold fs-6">{{ student.year_level }}</div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="p-3 rounded-3 h-100" style="background: rgba(15, 23, 42, 0.55); border: 1px solid rgba(255, 255, 255, 0.1);">
+                    <div class="small text-uppercase text-info opacity-75">Section</div>
+                    <div class="fw-semibold fs-6">{{ student.section }}</div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="p-3 rounded-3 h-100" style="background: rgba(15, 23, 42, 0.55); border: 1px solid rgba(255, 255, 255, 0.1);">
+                    <div class="small text-uppercase text-info opacity-75">Portal Username</div>
+                    <div class="fw-semibold fs-6">{{ student.user.username }}</div>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="p-3 rounded-3" style="background: rgba(15, 23, 42, 0.55); border: 1px solid rgba(255, 255, 255, 0.1);">
+                    <div class="small text-uppercase text-info opacity-75">Enrollment Record Created</div>
+                    <div class="fw-semibold fs-6">{{ student.created_at|date:"F j, Y, g:i a" }}</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}
